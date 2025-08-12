@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import publicDatasource from '../public/public-orm.config';
 import { DataSource } from 'typeorm';
-import { Tenant } from './entities/tenant.entity';
+import { Tenant } from './entities/tenants.entity';
 import { migrateTenantsDatabase } from './scripts/migrate-tenants';
 
 @Injectable()

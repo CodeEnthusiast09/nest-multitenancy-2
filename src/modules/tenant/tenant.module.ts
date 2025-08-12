@@ -3,9 +3,10 @@ import { TenantController } from './tenant.controller';
 import { TenantService } from './tenant.service';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { tenantConfig } from './tenant-orm.config';
+import { CatsModule } from './cats/cats.module';
 
 @Module({
-  imports: [],
+  imports: [CatsModule],
   controllers: [TenantController],
   providers: [TenantService],
 })

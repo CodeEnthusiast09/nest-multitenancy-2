@@ -41,8 +41,8 @@ export async function migrateTenantsDatabase(database: string) {
   //   }
   // }
   // await dataSource.destroy();
-
-   ...tenantConfig,
+  const ds = new DataSource({
+    ...tenantConfig,
     database,
     name: `tenant-${database}`, // avoid connection name collision
   } as DataSourceOptions);
@@ -57,8 +57,7 @@ export async function migrateTenantsDatabase(database: string) {
   } finally {
     await ds.destroy();
   }
-}const ds = new DataSource({
-   
+}
 
 // migrateTenantsDatabase().catch((error) => {
 //   console.error(error);

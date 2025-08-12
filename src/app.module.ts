@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './modules/tenant/users/users.module';
 import { TenantModule } from './modules/tenant/tenant.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -7,6 +6,7 @@ import { publicTypeOrmAsyncConfig } from './modules/public/public-orm.config';
 import { validate } from 'env.validation';
 import { TenantController } from './modules/tenant/tenant.controller';
 import { TenantService } from './modules/tenant/tenant.service';
+import { CatsModule } from './modules/tenant/cats/cats.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -18,9 +18,9 @@ import configuration from './config/configuration';
       validate: validate,
     }),
     TypeOrmModule.forRootAsync(publicTypeOrmAsyncConfig),
-    UsersModule,
     TenantModule,
     TenantModule,
+    CatsModule,
   ],
   controllers: [TenantController],
   providers: [TenantService],
