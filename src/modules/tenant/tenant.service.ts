@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import publicDatasource from '../public/public-orm.config';
 import { DataSource } from 'typeorm';
-import { Tenant } from './entities/tenants.entity';
+import { Tenant } from '../public/entities/tenants.entity';
 import { migrateTenantsDatabase } from './scripts/migrate-tenants';
 
 @Injectable()
@@ -52,9 +52,13 @@ export class TenantService implements OnModuleInit {
         LC_CTYPE 'en_US.UTF-8'
         TEMPLATE template0;
       `);
+
       await migrateTenantsDatabase(dbName);
+
       const tenant = new Tenant();
+
       tenant.name = name;
+
       await this.dataSource.manager.save(tenant);
     } catch (error) {
       console.error(`❌ Error during tenant creation:`, error);

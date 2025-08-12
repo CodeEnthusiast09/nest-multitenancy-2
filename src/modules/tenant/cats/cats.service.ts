@@ -1,26 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
+import { Cat } from '../entities/cat.entity';
+import { DataSource, UpdateResult } from 'typeorm';
+import { CONNECTION } from 'src/modules/tenancy/tenancy.symbol';
 
 @Injectable()
 export class CatsService {
-  create(createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
+  constructor(
+    @Inject(CONNECTION)
+    private readonly connection: DataSource,
+  ) {}
+
+  async create(createCatDto: CreateCatDto): Promise<Cat> {
+    const catRepo = this.connection.getRepository(Cat);
+
+    const cat = catRepo.create({
+      name: createCatDto.name,
+      color: createCatDto.color,
+    });
+
+    return await catRepo.save(cat);
   }
 
-  findAll() {
-    return `This action returns all cats`;
+  async findAll(): Promise<Cat[]> {
+    const catRepo = this.connection.getRepository(Cat);
+    return catRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cat`;
+  async findOne(id: number): Promise<Cat | null> {
+    const catRepo = this.connection.getRepository(Cat);
+    return catRepo.findOne({ where: { id } });
   }
 
-  update(id: number, updateCatDto: UpdateCatDto) {
-    return `This action updates a #${id} cat`;
+  async update(id: number, updateCatDto: UpdateCatDto): Promise<UpdateResult> {
+    const catRepo = this.connection.getRepository(Cat);
+    return catRepo.update(id, updateCatDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cat`;
+  async remove(id: number): Promise<void> {
+    const catRepo = this.connection.getRepository(Cat);
+    await catRepo.delete(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TenantModule } from './modules/tenant/tenant.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -7,7 +7,9 @@ import { validate } from 'env.validation';
 import { TenantController } from './modules/tenant/tenant.controller';
 import { TenantService } from './modules/tenant/tenant.service';
 import { CatsModule } from './modules/tenant/cats/cats.module';
+import { TenancyModule } from './modules/tenancy/tenancy.module';
 import configuration from './config/configuration';
+import { TenancyMiddleware } from './modules/tenancy/tenancy.middleware';
 
 @Module({
   imports: [
@@ -21,8 +23,13 @@ import configuration from './config/configuration';
     TenantModule,
     TenantModule,
     CatsModule,
+    TenancyModule,
   ],
   controllers: [TenantController],
   providers: [TenantService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(TenancyMiddleware).forRoutes('*');
+  }
+}

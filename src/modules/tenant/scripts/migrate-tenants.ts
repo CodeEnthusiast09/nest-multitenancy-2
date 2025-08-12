@@ -49,6 +49,7 @@ export async function migrateTenantsDatabase(database: string) {
 
   try {
     await ds.initialize();
+    await ds.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await ds.runMigrations();
     console.log(`Migration completed for ${database}`);
   } catch (err) {

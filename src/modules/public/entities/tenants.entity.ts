@@ -1,19 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column } from 'typeorm';
+import { AbstractEntity } from 'src/abstract.entity';
 
-@Entity()
-export class Tenant {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+@Entity({ schema: 'public', name: 'tenants' })
+export class Tenant extends AbstractEntity {
   @Column({ unique: true })
   name: string;
-
-  @Column({ unique: true })
-  slug: string;
-
-  @Column()
-  database: string;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
 }
