@@ -10,6 +10,8 @@ import { CatsModule } from './modules/tenant/cats/cats.module';
 import { TenancyModule } from './modules/tenancy/tenancy.module';
 import configuration from './config/configuration';
 import { TenancyMiddleware } from './modules/tenancy/tenancy.middleware';
+import { UsersModule } from './modules/tenant/users/users.module';
+import { AuthModule } from './modules/tenant/auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { TenancyMiddleware } from './modules/tenancy/tenancy.middleware';
     TenantModule,
     CatsModule,
     TenancyModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [TenantController],
   providers: [TenantService],

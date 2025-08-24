@@ -37,6 +37,21 @@ class EnvironmentVariables {
   DB_NAME: string;
 
   @IsString()
+  EMAIL_HOST: string;
+
+  @IsNumber()
+  EMAIL_PORT: number;
+
+  @IsString()
+  EMAIL_USER: string;
+
+  @IsString()
+  EMAIL_PASS: string;
+
+  @IsString()
+  FRONT_END_URL: string;
+
+  @IsString()
   SECRET: string;
 }
 

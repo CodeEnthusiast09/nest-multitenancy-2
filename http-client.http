@@ -1,0 +1,77 @@
+### GET ENV VARIABLES
+
+GET http://localhost:3000/auth/env
+
+
+### Update User Profile
+
+PUT http://localhost:3000/auth/update/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoiYmx1ZWxpbmRhNjE4QGNvZGVtYWlsMS5jb20iLCJpYXQiOjE3NTEzNTc1MDEsImV4cCI6MTc1MTM2MTEwMX0.f0iIbwRli6_kgKLdDxIfrNydd_MJvwaWBwOJLt68tl4
+
+{
+    "firstName": "Kirilov",
+    "lastName": "Dimovska",
+    "email": "kirildimov@plusfieldzone.com",
+    "role": "WORKER"
+}
+
+
+### Signup User
+
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoiYmx1ZWxpbmRhNjE4QGNvZGVtYWlsMS5jb20iLCJpYXQiOjE3NTEzNTc1MDEsImV4cCI6MTc1MTM2MTEwMX0.f0iIbwRli6_kgKLdDxIfrNydd_MJvwaWBwOJLt68tl4
+
+{
+    "firstName": "Kiril",
+    "lastName": "Dimov",
+    "email": "kirildimov@plusfieldzone.com",
+    "role": "WORKER"
+}
+
+### Login User
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "bluelinda618@codemail1.com",
+    "password": "mypassword123"
+}
+
+ #"email": "admin@staffhub.com",
+ # "password": "mypassword123"
+ # "password": "StrngPwd_123"
+
+### Send Email
+
+POST http://localhost:3000/tenants/36ba7586-f9a0-4d26-a8c3-68e8b8bf42a6/email/send-email
+Content-Type: application/json
+
+{
+  "recipients": ["adeniyiroqeebat001@gmail.com"],
+  "subject": "Test Email",
+  "html": "This is a test email sent from the Nestjs application O'Brien is working on. <br> It is sent using the <a href=\"https://nodemailer.com/about/\">Nodemailer</a> package. How are you and how is work going? DO NOT FORGET MY CHIN CHIN",
+  "text": "This is a test email sent from the Nestjs application. It is sent using the Nodemailer package."
+}
+
+
+### RESET PASSWORD
+
+POST http://localhost:3000/auth/reset-password
+Content-Type: application/json
+
+{
+ "email": "yaminahouti@taptoplab.com"
+}
+
+### Activate Account
+
+POST http://localhost:3000/auth/activate
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtpcmlsZGltb3ZAcGx1c2ZpZWxkem9uZS5jb20iLCJ0eXBlIjoiYWN0aXZhdGlvbiIsImlhdCI6MTc1MTM1NzUxOCwiZXhwIjoxNzUxMzYxMTE4fQ.x27smIBglmg9t0YCUMncML6M2NdrM3mAZ-N13OXdXTw",
+  "password": "mypassword123"
+}

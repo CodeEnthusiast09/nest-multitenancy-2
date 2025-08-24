@@ -24,7 +24,10 @@ async function getTenantDbName(tenantId: string): Promise<string> {
     throw new Error(`Tenant with id ${tenantId} not found`);
   }
 
-  return `tenant_${tenant.name}`;
+  const slug =
+    tenant.slug ?? tenant.company_name.toLowerCase().replace(/\s+/g, '_');
+
+  return `tenant_${slug}`;
 }
 
 export async function getTenantConnection(

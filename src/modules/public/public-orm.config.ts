@@ -23,7 +23,7 @@ export const publicTypeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       username: configService.get<string>('database.user'),
       database: configService.get<string>('database.name'),
       password: configService.get<string>('database.pass'),
-      entities: ['dist/**/*.entity.js'],
+      entities: ['dist/src/modules/public/entities/*.entity.js'],
       migrations: ['dist/src/modules/public/migrations/*.js'],
       synchronize: false,
     };
@@ -39,7 +39,7 @@ export const publicConfig: DataSourceOptions = {
   database: process.env.DB_NAME,
   // entities: [join(__dirname, '/../modules/public/entities/*.entity{.ts,.js}')],
   // migrations: [join(__dirname, '/../modules/public/migrations/*{.ts,.js}')],
-  entities: ['dist/**/*.entity.js'],
+  entities: ['dist/src/modules/public/entities/*.entity.js'],
   migrations: ['dist/src/modules/public/migrations/*.js'],
   synchronize: false,
 };

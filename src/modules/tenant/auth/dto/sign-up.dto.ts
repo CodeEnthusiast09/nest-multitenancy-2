@@ -1,16 +1,20 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateTenantDto {
+export class SignUpDto {
   @IsNotEmpty()
   @IsString()
-  company_name: string;
+  full_name: string;
 
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  company_email: string;
+  email: string;
 
   @IsNotEmpty()
   @IsString()
-  company_phone_number: string;
+  phone_number: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
 }

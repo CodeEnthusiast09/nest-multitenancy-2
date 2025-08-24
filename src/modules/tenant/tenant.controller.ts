@@ -1,33 +1,39 @@
 import {
   Body,
   Controller,
-  Get,
   HttpException,
   HttpStatus,
   Post,
 } from '@nestjs/common';
 import { TenantService } from './tenant.service';
 import { CreateTenantDto } from './dtos/create-tenant.dto';
+import { SignUpDto } from './auth/dto/sign-up.dto';
 
 @Controller('tenants')
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}
 
-  @Get()
-  getHello(): string {
-    return this.tenantService.getHello();
-  }
-
   @Post()
-  async createTenant(@Body() createTenantDto: CreateTenantDto) {
+  async createTenant(
+    @Body('tenant') createTenantDto: CreateTenantDto,
+    @Body('user') signUpDto: SignUpDto,
+  ) {
     try {
-      const { name } = createTenantDto;
-      await this.tenantService.createTenant(name);
-      return { message: `Tenant '${name}' created successfully` };
-    } catch (error) {
+      const result = await this.tenantService.createTenant(
+        createTenantDto,
+        signUpDto,
+      );
+      return {
+        message: `Tenant '${createTenantDto.company_name}' and User created successfully`,
+        tenant: result.tenant,
+        user: result.user,
+      };
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : 'Unexpected error occurred';
+
       throw new HttpException(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        { status: HttpStatus.INTERNAL_SERVER_ERROR, error: error.message },
+        { status: HttpStatus.INTERNAL_SERVER_ERROR, error: message },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
